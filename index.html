@@ -10,12 +10,12 @@
 </head>
 <body>
     <video id="decrypted-video" class="video-js vjs-default-skin" controls>
-        <source src="path_to_encrypted_video" type="video/mp4">
+        <source src="https://raw.githubusercontent.com/axomking/encrypt/main/encrypted_output.mp4" type="video/mp4">
     </video>
 
     <script>
         // Encryption key (should be securely fetched from server)
-        var key = "YourEncryptionKeyHere";
+        var key = "wBXEFy2Yhymlyg8iR0TGVMVGRgxNHlooHT4Fw8XZilc=";
 
         // Function to decrypt video data
         function decryptVideo(encryptedData) {
@@ -24,7 +24,7 @@
         }
 
         // Fetch and decrypt encrypted video
-        fetch('path_to_encrypted_video')
+        fetch('https://raw.githubusercontent.com/axomking/encrypt/main/encrypted_output.mp4')
             .then(response => response.arrayBuffer())
             .then(buffer => {
                 var encryptedData = new Uint8Array(buffer);
