@@ -3,40 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Decrypted Video Player</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-    <link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet">
-    <script src="https://vjs.zencdn.net/7.14.3/video.js"></script>
+    <title>Block Console Methods Example</title>
+    
+    <!-- Block Console Methods Script -->
+    <script>
+        // Block console methods
+        console.log = function() {};
+        console.warn = function() {};
+        console.error = function() {};
+    </script>
+
 </head>
 <body>
-    <video id="decrypted-video" class="video-js vjs-default-skin" controls>
-        <source src="https://raw.githubusercontent.com/axomking/encrypt/main/encrypted_output.mp4" type="video/mp4">
-    </video>
+
+    <h1>Welcome to My Website</h1>
+    <button onclick="openYouTube()">Open YouTube Video</button>
 
     <script>
-        // Encryption key (should be securely fetched from server)
-        var key = "wBXEFy2Yhymlyg8iR0TGVMVGRgxNHlooHT4Fw8XZilc=";
+        // JavaScript for Deep Linking
+        function openYouTube() {
+            const videoId = "igQKgJmIozg"; // Replace with your video ID
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-        // Function to decrypt video data
-        function decryptVideo(encryptedData) {
-            var decryptedData = CryptoJS.AES.decrypt(encryptedData, key);
-            return decryptedData.toString(CryptoJS.enc.Utf8);
+            if (/android/i.test(userAgent)) {
+                // Open in YouTube app for Android
+                window.location.href = `vnd.youtube:${videoId}`;
+            } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                // Open in YouTube app for iOS
+                window.location.href = `vnd.youtube://${videoId}`;
+            } else {
+                // Default: Open in YouTube web player
+                window.open(`https://www.youtube.com/watch?v=${videoId}`, "_blank");
+            }
         }
-
-        // Fetch and decrypt encrypted video
-        fetch('https://raw.githubusercontent.com/axomking/encrypt/main/encrypted_output.mp4')
-            .then(response => response.arrayBuffer())
-            .then(buffer => {
-                var encryptedData = new Uint8Array(buffer);
-                var decryptedData = decryptVideo(encryptedData);
-                var decryptedBlob = new Blob([decryptedData], { type: 'video/mp4' });
-                var decryptedUrl = URL.createObjectURL(decryptedBlob);
-
-                // Load decrypted video into player
-                var player = videojs('decrypted-video');
-                player.src({ src: decryptedUrl, type: 'video/mp4' });
-            })
-            .catch(error => console.error('Error fetching encrypted video:', error));
     </script>
+
 </body>
 </html>
